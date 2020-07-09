@@ -1,0 +1,276 @@
+*,::after,::before{box-sizing:border-box}
+*{font-family: 'EB Garamond', 'Nanum Myeongjo', serif; box-sizing:border-box; margin:0; padding:0; box-sizing: border-box;}
+a{text-decoration: none; color:#fff;}
+h1{letter-spacing: 1px; transition: 1s cubic-bezier(0.455,0.030,0.515,0.955);}
+/*제목 텍스트에 마우스 hover 했을 때, 자간이 넓어지게 한다.*/
+h1:hover{letter-spacing: 10px; transition: 1s cubic-bezier(0.455,0.030,0.515,0.955);}
+/* 최소 높이를 브라우저의 높이로 지정한다. */
+html{min-height:100vh; scroll-behavior:smooth;}
+/* scroll-behavior = nav을 통해 섹션 이동 시, 자연스럽게 스크롤 되도록 하는 속성. 다만 익스플로어에서는 적용되지 않는다. */
+
+/* Header */
+header {
+      width:100%; position: fixed; /* fixed를 사용하여 스크롤을 해도 헤더가 고정되도록 한다.*/
+      z-index:300; /* 헤더가 다른 요소 밑으로 깔리지 않게 하기 위해 z-index를 부여하여 위로 띄운다.*/
+      display: flex; text-align: center; margin-top: 20px; /* flex를 사용하여 요소들을 일렬로 배치한다.*/}
+header > h1 {flex:1; position:relative; padding-left: 25px;}
+header > h1:hover{letter-spacing: 1px;}
+header > div.blank {flex:24;}
+header > h1 > a {color:#fe8c8c; display:block;}
+
+/* SIDE MENU*/
+header > div.menu {position:relative; flex:1;}
+header > div.menu > h2.blind{
+      /* !important : 이전의 타입을 덮어쓴다. */
+      display:none!important; visibility:hidden!important; position:absolute;
+      margin:0; padding:0; clip:rect(0 0 0 0);
+      /*clip : absolute 또는 fixed일 때만 적용됨, 특정 부분만 보이게 한다.*/
+      pointer-events:none; /* a태그의 링크를 무효화*/}
+header > div.menu > b.btn-menu{
+      /* 눌렀을 때, 사이드 메뉴가 펼쳐지게 할 햄버거 버튼. */
+      display:block;position:relative;top:0;left:0;
+      width:40px; height:40px; cursor:pointer; /* 마우스 커서가 클릭할 수 있는 모양(손가락)으로 바뀐다. 콘텐츠를 클릭할 수 있게 된다. */}
+header > div.menu > b.btn-menu > span{
+      /* 햄버거 버튼 모양을 위한 span, border top과 bottom을 주어 위 아래 선을 만들어주었다. */
+      display:block; position:absolute;
+      width: 30px; height: 22px; top:25%;
+      border-top: 2px solid #fe8c8c;
+      border-bottom: 2px solid #fe8c8c;
+      /* transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. 선 색상에 transition 적용 */
+      -webkit-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -moz-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -o-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -ms-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955)}
+.header > div.menu > b.btn-menu > span::before,.btn-menu > span::after{
+      /* 햄버거 버튼 모양을 만들기 위해 추가. 햄버거 버튼의 가운데 선으로 들어간다. */
+      content:'';display:block;position:absolute;
+      width:100%;height:0;top:0;
+      border-bottom:2px solid #fe8c8c; 
+      /* transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. 선 색상에 transition 적용 */
+      -webkit-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -moz-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -o-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -ms-transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      transition:border-color 180ms cubic-bezier(0.455,0.030,0.515,0.955)}
+/* 가운데 선 위치 지정. */
+header > div.menu > b.btn-menu span::after{transform:translateY(8px)}
+/* 마우스 hover 했을 때, 색상이 흰색으로 변하게 한다. transition 값 덕분에 자연스럽게 변함. */
+header > div.menu > b.btn-menu:hover span,.btn-menu:hover span::before,.btn-menu:hover span::after{border-color:#fff}
+
+/* MENU WINDOW */
+header > div.menu > div.side-menu{
+      /* 태그를 넘어간 부분을 안보이게 하기 위해 hidden 사용, 스크롤을 내려도 메뉴를 볼 수 있게 하기 위해 fixed 사용. */
+      overflow-x:hidden; overflow-y:auto; position:fixed; top:0; right: 0;
+      width:800px; height:100vh; background-color:rgba(24, 97, 134, 0.7);
+      /* 위치를 변경하기 위한 코드 */
+      -webkit-transform:translateX(100%); -moz-transform:translateX(100%);
+      -o-transform:translateX(100%); -ms-transform:translateX(100%); transform:translateX(100%);
+      /* transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. transform에 transition 적용 */
+      -webkit-transition:-webkit-transform 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+      -moz-transition:-moz-transform 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+      -o-transition:-o-transform 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+      -ms-transition:-ms-transform 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+      transition:transform 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860)}
+/* 사이드 메뉴가 오픈되었을 때, X위치가 변경됨. 오른쪽에 넘어가 있어서 안 보이다가 open class가 부여되면 보이게 됨. 자바스크립트에서 적용 */
+header > div.menu > div.side-menu.open{transform:translateX(0);}
+header > div.menu > div.side-menu > ul{
+      /* 카테고리의 위치를 설정함. */
+      margin:0;padding:0;margin-top: 285px;margin-left:120px;}
+/* 카테고리 앞에 점?을 없어지게 만들고, 글자를 좌측정렬함. */
+header > div.menu > div.side-menu > ul > li {list-style-type: none; display:block; text-align: left;}
+header > div.menu > div.side-menu > ul > li > a{
+      /* 카테고리 위치 지정 및 글자 설정 */
+      vertical-align:top;
+      text-decoration:none;font-size:36px;
+      font-weight:700;letter-spacing:1px;
+      line-height:108px;opacity:0;transform:translateX(20px);}
+header > div.menu > div.side-menu > ul > li > a > span{color:#fff;}
+header > div.menu > div.side-menu > ul > li > a > span:hover{
+      /* 카테고리에 마우스 hover했을 때, 색상이 변하도록 함. */
+      color:#fe8c8c;}
+header > div.menu > div.side-menu > ul > li a:hover span::after{width:100%}
+header > div.menu > div.side-menu .btn-close{
+      /* side메뉴를 닫게 하기 위한 닫힘 버튼*/
+      overflow:hidden;display:block;position:absolute;top:25px;right:30px;
+      width: 40px; height: 40px; padding:15px;cursor:pointer; border-radius: 50%; border: 1px solid #fff; /* 마우스 커서가 클릭할 수 있는 모양(손가락)으로 바뀐다. */
+      /* 위치를 변경하기 위한 코드 */
+      -webkit-transform:translateX(100%) rotate(45deg);-moz-transform:translateX(100%) rotate(45deg);
+      -o-transform:translateX(100%) rotate(45deg);-ms-transform:translateX(100%) rotate(45deg);
+      transform:translateX(100%) rotate(45deg);
+      /* transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. 배경색과 transform 속성에 transition 적용 */
+      -webkit-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955),-webkit-transform 250ms 400ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -moz-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955),-moz-transform 250ms 400ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -o-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955),-o-transform 250ms 400ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -ms-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955),-ms-transform 250ms 400ms cubic-bezier(0.455,0.030,0.515,0.955);
+      transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955),transform 250ms 400ms cubic-bezier(0.455,0.030,0.515,0.955)}
+header > div.menu > div.side-menu.open .btn-close{
+      /* side 메뉴를 오픈했을 때, tansform 값을 다르게 줌으로써 살짝 굴러오는 모션을 줌. */
+      transform:translateX(0) rotate(0deg)}
+header > div.menu > div.side-menu .btn-close span{overflow:hidden;display:block;position:relative;width:100%;height:100%}
+header > div.menu > div.side-menu .btn-close span::before,.side-menu .btn-close span::after{
+      content: '';display:block;position:absolute;height:1px;width:200%;top:50%;left:-50%;
+      /* transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. 배경색 속성에 transition 적용. -> 엑스버튼의 색상이 자연스럽게 변하게 함. */
+      -webkit-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -moz-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -o-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      -ms-transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955);
+      transition:background-color 180ms cubic-bezier(0.455,0.030,0.515,0.955)}
+header > div.menu > div.side-menu .btn-close span::before{
+      /* close 버튼의 x모양을 만들기 위해 rotate 값을 줌. "/" 에 해당, translateY도 함께 조정함으로 써 버튼의 가운데에 오게 함. */
+      background-color: #fff;
+      -webkit-transform:translateY(-50%) rotate(45deg);-moz-transform:translateY(-50%) rotate(45deg);
+      -ms-transform:translateY(-50%) rotate(45deg);-o-transform:translateY(-50%) rotate(45deg);
+      transform:translateY(-50%) rotate(45deg)}
+header > div.menu > div.side-menu .btn-close span::after{
+       /* close 버튼의 x모양을 만들기 위해 rotate 값을 줌. "\"에 해당, translateY도 함께 조정함으로 써 버튼의 가운데에 오게 함. */
+       background-color: #fff;
+      -webkit-transform:translateY(-50%) rotate(-45deg);-moz-transform:translateY(-50%) rotate(-45deg);
+      -ms-transform:translateY(-50%) rotate(-45deg);-o-transform:translateY(-50%) rotate(-45deg);
+      transform:translateY(-50%) rotate(-45deg)}    
+header > div.menu > div.side-menu .btn-close:hover{
+      /* 마우스 hover했을 때, 외곽선 변경. */
+      width: 40px; height: 40px; border:1px solid #fe8c8c; border-radius: 50%;}
+header > div.menu > div.side-menu .btn-close:hover span::before,.side-menu .btn-close:hover span::after{
+      /* 마우스 hover했을 때, x에 색 부여 */
+      background-color:#fe8c8c} 
+header > div.menu > div.side-menu li.ani > a{
+      /* side 메뉴의 카테고리가 자연스럽게 나타나게 하기 위해 opacity값과 animation 값을 부여.
+      자바스크립트를 통해 menu 버튼을 눌렀을 때 활성화 되도록 함. */
+      opacity:1.0;transform:translateX(0);animation:menuAni 250ms cubic-bezier(0.455,0.030,0.515,0.955)}
+
+@keyframes menuAni{
+    0%{opacity:0;transform:translateX(20px)}
+    100%{opacity:1.0;transform:translateX(0)}
+}
+
+/* side 메뉴 오른쪽 아래에 들어갈 SNS 버튼. css를 통해 위치를 조절. */
+header > div.menu > div.side-menu > div.sns {position: absolute; bottom: 100px; right:50px;}
+/* 마진값을 주어 버튼 사이의 간격을 추가함 */
+header > div.menu > div.side-menu > div.sns > a {width: 50px; height: 50px; float: left; margin-right: 20px;}
+/* span에 배경이미지를 설정함. */
+header > div.menu > div.side-menu > div.sns > a > span.youtube  {display:block; width:50px; height:50px; background-image: url("../img/icon/youtube.png"); background-size:50px 50px;}
+header > div.menu > div.side-menu > div.sns > a > span.website {display:block; width:50px; height:50px; background-image: url("../img/icon/website.png"); background-size:50px 50px;}
+
+
+
+/* NAVIGATION */
+/* 스크롤을 내려도 내비게이션바를 계속 볼 수 있게 하기 위해 fixed 사용. */
+nav {position: fixed; left: 30px; top:50vh;}
+/* 버튼을 누르기 전, 투명도를 부여하여 차이를 줌.  */
+nav > ul {list-style-type: none; color: rgba(255, 255, 255, 0.774);}
+/* 글자와 버튼 사이의 간격 */
+nav > ul > li > a {margin-right: 10px;}
+/* 마우스 hover했을 때, 색상이 바뀌도록 한다. */
+nav > ul > li:hover {color: #fff;}
+
+/* MAIN - VISUAL*/
+article.main-visual{
+      /* 메인 화면의 배경 이미지를 설정. */
+      background-image: url("../img/Index-img/main-visual.jpg");
+      height: 1110px; background-repeat: no-repeat; background-size: cover;
+}
+
+/* SYNOPSIS */
+article.synopsis-area{background-color: #c1f5fb; display: block; color:#186186; padding-bottom: 125px;}
+/* 콘텐츠를 나란히 두기 위해 flex 사용. 텍스트를 area가 끝나는 위치에 두기 위해 flex-end를 사용. */
+article.synopsis-area > div.content {width: 1084px; margin: 0 auto; display: flex; align-items: flex-end;}
+article.synopsis-area > div.content > div.synopsis-text {flex:1;}
+/* 소제목과 설명 부분에 간격을 위해 마진값 적용 */
+article.synopsis-area > div.content > div.synopsis-text > h1 {font-size: 40px; margin-bottom: 50px;}
+/* 소제목 앞에 작은 버튼이 오도록 함*/
+article.synopsis-area > div.content > div.synopsis-text > h1 > a {font-size: 15px; color:#ff8c8c; vertical-align: top;}
+article.synopsis-area > div.content > div.synopsis-text > dl > dt {font-size: 18px; margin-bottom: 16px;}
+article.synopsis-area > div.content > div.synopsis-text > dl > dd {font-size: 15px; line-height: 21px;}
+article.synopsis-area > div.content > div.synopsis-text > dl > dd > p {font-size: 20px; font-weight: 700; line-height: 40px; margin-top: 20px;}
+article.synopsis-area > div.content > div.synopsis-text > a {color:#ff8c8c;}
+
+article.synopsis-area > div.content > div.synopsis {position: relative;}
+/* 마우스 hover했을 때, 텍스트가 이미지 위로 나타나게 하기 위해, absolute와 opacity를 설정. transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. 모든 속성에 transition 적용 */
+article.synopsis-area > div.content > div.synopsis > div.info {background-color: #186186; width:717px; height:793px; opacity:0; position: absolute; top:0; right: 0;  transition:all 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);}
+/* 사진이 살짝 비쳐 보이게 하기 위해 opacity 값을 0.9로 지정. transition 값을 지정하여 변화할 때 자연스럽게 변하도록 함. 모든 속성에 transition 적용 */
+article.synopsis-area > div.content > div.synopsis > div.info:hover {opacity: 0.9; transition:all 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);}
+/* hover했을 때 나타나는 텍스트의 위치 지정. */
+article.synopsis-area > div.content > div.synopsis > div.info > ul {list-style-type: none; color:#fff; padding: 175px 20px 0 0;}
+/* 단락마다 padding값을 주어 간격 설정 */
+article.synopsis-area > div.content > div.synopsis > div.info > ul > li {text-align: right; font-size: 18px; padding-bottom: 35px;}
+/* 마지막에는 padding값을 0으로 조정. */
+article.synopsis-area > div.content > div.synopsis > div.info > ul > li:last-child {padding-bottom: 0;}
+/* text의 행간 조절 */
+article.synopsis-area > div.content > div.synopsis > div.info > ul > li > p {line-height: 30px;}
+article.synopsis-area > div.content > div.synopsis > div.info > ul > li > p > span {font-size: 13px;}
+
+/* MIDDLE-VISUAL */
+/* Synopsis 아래 또 다른 줄거리를 넣기 위해 article을 생성 - > 백그라운드 이미지를 넣고 텍스트를 가운데에 오도록 값 지정. */
+article.middle-visual {background: url("../img/Index-img/middle-visual.jpg"); height: 385px;}
+/* 텍스트가 가운데 오도록 정렬 */
+article.middle-visual > div.middle-text {padding-top:105px; font-size: 20px; font-weight: 400; color:#fff; text-align: center; line-height: 30px;}
+article.middle-visual > div.middle-text > p > span {color:#fe8c8c; font-weight: 700;}
+
+/* CAST */
+/* 레이아웃 및 소제목 설정 */
+article.cast-area {background-color: #c1f5fb; display: block; color:#186186; height: 1535px; padding-top: 145px;}
+article.cast-area > h1 {text-align: center; font-size: 40px; margin-bottom: 80px;}
+article.cast-area > h1 > a {font-size: 15px; color:#ff8c8c; vertical-align: top;}
+
+/* cast contents가 들어갈 div */
+article.cast-area > div.cast-container{margin: 0 auto; width:1083px;}
+/* 높이 설정, 선택됐을 때 보이도록 함. */
+article.cast-area > div.cast-container > div.cast {display:none; height:710px;}
+article.cast-area > div.cast-container > div.cast.selected{display:block;}
+
+/* cast 박스 안의 콘텐츠를 각각 좌.우 정렬하기 위해서 두가지 버전으로 나눠 작성. */
+/* 좌측 정렬 콘텐츠 */
+article.cast-area > div.cast-container > div.cast > div.cast-content {margin-bottom: 60px; height:450px; background-color: rgba(255, 255, 255, 0.5); border-radius: 16px; box-shadow: rgba(255, 255, 255, 0.5); transition: 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);}
+/* scale과 opacity 값을 설정하여 마우스 hover했을 때 변화를 줌.*/
+article.cast-area > div.cast-container > div.cast > div.cast-content:hover {background-color: rgba(255, 255, 255, 0.9); transform: scale(1.05); transition: 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);}
+/* 좌측 정렬 */
+article.cast-area > div.cast-container > div.cast > div.cast-content > div.cast-text {text-align: left;}
+/* 프로필 이미지 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content > div.cast-text > img {border-radius: 50%; width: 258px; margin: 95px 110px 95px 92px; float: left;}
+/* 배역 이름 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content > div.cast-text > h2 {font-size: 33px; font-weight: 700; padding: 95px 0 33px 0;}
+/* 배우 이름 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content > div.cast-text > h2 > span {font-size: 16px; font-weight: 400; padding-left: 10px;}
+/* 배역 설명 텍스트 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content > div.cast-text > p {font-size: 14px; line-height: 25px; letter-spacing: 1px;}
+
+/* 우측 정렬 콘텐츠 */
+article.cast-area > div.cast-container > div.cast > div.cast-content2 {margin-bottom: 60px; height:450px; background-color: rgba(255, 255, 255, 0.5); border-radius: 16px; box-shadow: rgba(255, 255, 255, 0.5);transition: 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);}
+/* scale과 opacity 값을 설정하여 마우스 hover했을 때 변화를 줌. */
+article.cast-area > div.cast-container > div.cast > div.cast-content2:hover {background-color: rgba(255, 255, 255, 0.9);transform: scale(1.05); transition: 800ms cubic-bezier(0.785, 0.135, 0.15, 0.86);}
+/* 우측 정렬 */
+article.cast-area > div.cast-container > div.cast > div.cast-content2 > div.cast-text2 {text-align: right;}
+/* 프로필 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content2 > div.cast-text2 > img {border-radius: 50%; width: 258px; margin: 95px 92px 95px 110px; float: right;}
+/* 배역 이름 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content2 > div.cast-text2 > h2 {font-size: 33px; font-weight: 700; padding: 95px 0 33px 0;}
+/* 배우 이름 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content2 > div.cast-text2 > h2 > span {font-size: 16px; font-weight: 400; padding-right: 10px;}
+/* 배역 설명 텍스트 위치 설정 */
+article.cast-area > div.cast-container > div.cast > div.cast-content2 > div.cast-text2 > p {font-size: 14px; line-height: 25px; letter-spacing: 1px;}
+
+/* 5개의 버튼을 나란히 두고 (flex) 눌렀을 때 자바스크립트를 통해 selected class를 부여함. selected된 버튼의 순서에 따라 cast 콘텐츠도 바뀜. */
+div.cast-menu{width: 200px; margin: 0 auto; text-align: center; margin-top: 355px;}
+div.cast-menu ul{display:flex; list-style:none;}
+/* 버튼 사이의 간격을 위해 마진값 설정 */
+div.cast-menu li{width:15px; height:15px; margin-left:35px;}
+/* 선택된 버튼과 선택되지 않은 버튼에 차이를 두기 위해 opacity값 변경 (선택된 버튼 : 군청색 / 선택되지 않은 버튼 : 약간 투명한 흰색) */
+div.cast-menu li a{border-radius: 50%;width:100%;height:100%;text-align:center;text-decoration:none;color:rgba(255, 255, 255, 0.6);font-weight:700;line-height:2rem;-webkit-transition:background-color 120ms cubic-bezier(0.455,0.030,0.515,0.955),color 120ms cubic-bezier(0.455,0.030,0.515,0.955);-moz-transition:background-color 120ms cubic-bezier(0.455,0.030,0.515,0.955),color 120ms cubic-bezier(0.455,0.030,0.515,0.955);-o-transition:background-color 120ms cubic-bezier(0.455,0.030,0.515,0.955),color 120ms cubic-bezier(0.455,0.030,0.515,0.955);-ms-transition:background-color 120ms cubic-bezier(0.455,0.030,0.515,0.955),color 120ms cubic-bezier(0.455,0.030,0.515,0.955);transition:background-color 120ms cubic-bezier(0.455,0.030,0.515,0.955),color 120ms cubic-bezier(0.455,0.030,0.515,0.955);}
+div.cast-menu li a.selected{color:#186186;cursor:default;}
+div.cast-menu li a:hover{color:#4daedf; opacity: 1;}
+/* 콘텐츠와 버튼 사이에 공간을 두기 위해 마진값 부여. */
+div.cast-menu + div.service-container{margin-top:20px;}
+
+
+/* Footer */
+/* 푸터 레이아웃 설정 */
+footer {background-color: #186186; color:#fff; text-align: center; height: 215px;}
+footer > div {width:360px; margin: 0 auto; padding: 60px 0;}
+/* 다른 페이지로 이동할 수 있는 버튼 */
+footer > div > ul {display:flex; list-style: none; margin: 0 auto;}
+footer > div > ul > li{margin-right:35px;}
+footer > div > ul > li:last-child{margin-right: 0;}
+/* 저작권 텍스트 설정 */
+footer > p {line-height: 25px;}
+
